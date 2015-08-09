@@ -9,8 +9,14 @@ unlink(temp)
 
 data_file <- "household_power_consumption.txt"
 
-data <- fread(data_file, sep = ";", na.strings = "?", colClasses = "character")
+headers <- fread(data_file, sep = ";", nrow = 0)
+
+skip <- 65000
+data <- fread(data_file, sep = ";", na.strings = "?", colClasses = "character", 
+              skip = skip, nrows = 5000)
 unlink(data_file)
+
+setnames(data, names(headers))
 
 data$Date <- as.Date(strptime(data$Date, "%d/%m/%Y"))
 
@@ -18,4 +24,12 @@ sel <- data[(data$Date == "2007-02-01") | (data$Date == "2007-02-02")]
 
 title <- "Global Active Power"
 label <- "Global Active Power (kilowatts)"
-hist(as.numeric(sel$Global_active_power), col = "red", main = title, xlab = label) 
+
+sel$Global_active_power <- as.numeric(sel$Global_active_power)
+
+
+par("bg" = "transparent")
+hist(sel$Global_active_power, col = "red", main = title, xlab = label)
+
+dev.copy(png, file = "plot1.png", width = 480, height = 480)
+dev.off()
