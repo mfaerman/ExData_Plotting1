@@ -11,9 +11,14 @@ data_file <- "household_power_consumption.txt"
 
 headers <- fread(data_file, sep = ";", nrow = 0)
 
-skip <- 65000
+## Estimated lines to skip from input file (no needed dates)
+## Estimated lines to read from input file
+## Used to amortize reading time and memory usage 
+skip <- 65000 
+nrows <- 5000
+
 data <- fread(data_file, sep = ";", na.strings = "?", colClasses = "character", 
-              skip = skip, nrows = 5000)
+              skip = skip, nrows = nrows)
 unlink(data_file)
 
 setnames(data, names(headers))
