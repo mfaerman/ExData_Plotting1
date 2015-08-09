@@ -41,7 +41,7 @@ sel$Global_active_power <- as.numeric(sel$Global_active_power)
 par("bg" = "transparent")
 
 
-plot(dsel, sel$Sub_metering_1, type = "s", col="black", ylab = "Energy sub metering")
+plot(dsel, sel$Sub_metering_1, type = "s", col="black", ylab = "Energy sub metering", xlab ="" )
 points(dsel, sel$Sub_metering_2, type = "s", col="red")
 points(dsel, sel$Sub_metering_3, type = "s", col="blue")
 legend("topright", lty = c(1,1,1), col = c("black", "red", "blue"), legend = names(sel)[7:9])
