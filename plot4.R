@@ -9,6 +9,8 @@ retrieve_data <- function() {
         unlink(temp)        
 }
 
+## retrieve_data()
+
 data_file <- "household_power_consumption.txt"
 
 system.time(headers <- fread(data_file, sep = ";", nrow = 0))
@@ -17,7 +19,7 @@ system.time(headers <- fread(data_file, sep = ";", nrow = 0))
 # time and memory usage when loading the data from the input 
 # file with the "fread()" function.
 
-## Estimated lines to skip from input file (not needed dates)
+## Estimated lines to skip from input file (no needed dates)
 skip <- 65000 
 ## Estimated lines to read from input file
 nrows <- 5000
@@ -41,9 +43,9 @@ sel$Global_active_power <- as.numeric(sel$Global_active_power)
 label <- "Global Active Power (kilowatts)"
 par("bg" = "transparent")
 par("pty" = "s")          ## "s" generates a square plotting region
-par("cex" = 0.75)
+par("cex" = 0.75)         ## scale text size
 
-
+## Plot 3
 with(sel, plot(pdate, Sub_metering_1, type = "s", col="black", 
                ylab = "Energy sub metering", xlab =""))
 with(sel, points(pdate, Sub_metering_2, type = "s", col="red"))
