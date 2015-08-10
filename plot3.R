@@ -25,7 +25,7 @@ skip <- 65000
 nrows <- 5000
 
 system.time(data <- fread(data_file, sep = ";", na.strings = "?", colClasses = "character", 
-              skip = skip, nrows = nrows))
+                          skip = skip, nrows = nrows))
 # unlink(data_file)
 
 setnames(data, names(headers))
