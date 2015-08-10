@@ -40,19 +40,18 @@ end <- as.POSIXct("2007-02-03")
 sel <- data[(data$pdate >= start) & (data$pdate < end)]
 sel$Global_active_power <- as.numeric(sel$Global_active_power)
 
-label <- "Global Active Power (kilowatts)"
-par("bg" = "transparent")
-par("pty" = "s")          ## "s" generates a square plotting region
-par("cex" = 0.75)         ## scale text size
-
 ## Plot 3
-with(sel, plot(pdate, Sub_metering_1, type = "s", col="black", 
+.pardefault <- par(no.readonly = TRUE)
+
+png(file = "plot3.png", width = 480, height = 480)
+
+label <- "Global Active Power (kilowatts)"
+
+with(sel, plot.default(pdate, Sub_metering_1, type = "s", col="black", 
                ylab = "Energy sub metering", xlab =""))
 with(sel, points(pdate, Sub_metering_2, type = "s", col="red"))
 with(sel, points(pdate, Sub_metering_3, type = "s", col="blue"))
-legend("topright", lty = rep(1,3), col = c("black", "red", "blue"), 
-       legend = names(sel)[7:9])
+legend("topright", lty = rep(1,3), col = c("black", "red", "blue"), legend = names(sel)[7:9])
 
-
-dev.copy(png, file = "plot4.png", width = 480, height = 480)
 dev.off()
+par(.pardefault)
