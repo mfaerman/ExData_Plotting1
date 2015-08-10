@@ -25,12 +25,14 @@ setnames(data, names(headers))
 
 ##data$Date <- as.Date(strptime(data$Date, "%d/%m/%Y"))
 d <- strptime(paste(data$Date, data$Time), "%d/%m/%Y %H:%M:%S")
-d <- as.POSIXct(d)
+data[ , pdate := as.POSIXct(d)]
 
-start <- as.POSIXct("2007-02-01 00:00:00")
-end <- as.POSIXct("2007-02-02 23:59:59")
-dsel <- d[(d >= start) & (d <= end)]
-sel <- data[(d >= start) & (d <= end)]
+
+start <- as.POSIXct("2007-02-01")
+end <- as.POSIXct("2007-02-03")
+
+sel <- data[(data$pdate >= start) & (data$pdate < end)]
+
 
 
 label <- "Global Active Power (kilowatts)"
@@ -39,12 +41,15 @@ sel$Global_active_power <- as.numeric(sel$Global_active_power)
 
 
 par("bg" = "transparent")
+par("pin" = c(5,5))
+par("cex" = 0.8)
 
 
-plot(dsel, sel$Sub_metering_1, type = "s", col="black", ylab = "Energy sub metering", xlab ="" )
-points(dsel, sel$Sub_metering_2, type = "s", col="red")
-points(dsel, sel$Sub_metering_3, type = "s", col="blue")
-legend("topright", lty = c(1,1,1), col = c("black", "red", "blue"), legend = names(sel)[7:9])
+with(sel, plot(pdate, Sub_metering_1, type = "s", col="black", ylab = "Energy sub metering", xlab =""))
+with(sel, points(pdate, Sub_metering_2, type = "s", col="red"))
+with(sel, points(pdate, Sub_metering_3, type = "s", col="blue"))
+legend("topright", lty = c(1,1,1), col = c("black", "red", "blue"), 
+       legend = names(sel)[7:9])
 
 
 dev.copy(png, file = "plot3.png", width = 480, height = 480)
