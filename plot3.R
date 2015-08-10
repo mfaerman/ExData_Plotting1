@@ -47,7 +47,7 @@ png(file = "plot3.png", width = 480, height = 480)
 
 label <- "Global Active Power (kilowatts)"
 
-with(sel, plot.default(pdate, Sub_metering_1, type = "s", col="black", 
+with(sel, plot(pdate, Sub_metering_1, type = "s", col="black", 
                ylab = "Energy sub metering", xlab =""))
 with(sel, points(pdate, Sub_metering_2, type = "s", col="red"))
 with(sel, points(pdate, Sub_metering_3, type = "s", col="blue"))

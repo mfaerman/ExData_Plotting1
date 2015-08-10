@@ -52,7 +52,7 @@ label <- "Global Active Power"
 with(sel, plot(pdate, Global_active_power, type = 's', ylab = label, xlab = ""))
 
 ## SubPlot sub metering
-with(sel, plot.default(pdate, Sub_metering_1, type = "s", col="black", 
+with(sel, plot(pdate, Sub_metering_1, type = "s", col="black", 
                ylab = "Energy sub metering", xlab =""))
 with(sel, points(pdate, Sub_metering_2, type = "s", col="red"))
 with(sel, points(pdate, Sub_metering_3, type = "s", col="blue"))
